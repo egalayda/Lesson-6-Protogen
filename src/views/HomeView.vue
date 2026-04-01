@@ -1,4 +1,4 @@
-<script setup lang="ts">
+ï»¿<script setup lang="ts">
 defineProps<{
   isDark: boolean
 }>()
@@ -11,12 +11,12 @@ const links = [
   {
     label: 'LinkedIn',
     href: 'https://www.linkedin.com/in/eligalayda',
-    icon: '??',
+    icon: 'in',
   },
   {
     label: 'Email',
     href: 'mailto:eli.galayda@slalom.com',
-    icon: '??',
+    icon: '@',
   },
 ]
 </script>
@@ -24,14 +24,14 @@ const links = [
 <template>
   <main class="page">
     <button class="toggle-btn" @click="emit('toggleDark')" :aria-label="isDark ? 'Switch to light mode' : 'Switch to dark mode'">
-      {{ isDark ? '??' : '??' }}
+      {{ isDark ? 'Light' : 'Dark' }}
     </button>
 
     <div class="card">
       <div class="avatar" aria-label="Profile photo placeholder"></div>
 
       <h1 class="name">Eli Galayda</h1>
-      <p class="tagline">Consultant · Builder · Problem Solver</p>
+      <p class="tagline">Consultant &middot; Builder &middot; Problem Solver</p>
 
       <nav class="links">
         <a
@@ -65,17 +65,20 @@ const links = [
   top: 1.25rem;
   right: 1.25rem;
   background: transparent;
-  border: none;
-  font-size: 1.5rem;
+  border: 1.5px solid currentColor;
+  font-size: 0.85rem;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
   cursor: pointer;
-  padding: 0.25rem;
-  line-height: 1;
-  border-radius: 50%;
-  transition: transform 0.2s;
+  padding: 0.4rem 0.85rem;
+  border-radius: 999px;
+  color: inherit;
+  transition: transform 0.2s, background-color 0.2s;
 }
 
 .toggle-btn:hover {
-  transform: scale(1.2);
+  transform: scale(1.05);
+  background-color: rgba(128, 128, 128, 0.15);
 }
 
 .card {
@@ -141,6 +144,8 @@ const links = [
 }
 
 .link-icon {
-  font-size: 1.1rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  opacity: 0.7;
 }
 </style>
