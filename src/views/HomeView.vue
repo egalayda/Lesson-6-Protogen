@@ -1,5 +1,6 @@
 ﻿<script setup lang="ts">
 import { useTheme } from 'vuetify'
+import LinkButton from '@/components/LinkButton.vue'
 
 const theme = useTheme()
 
@@ -10,12 +11,12 @@ function toggleTheme() {
 const links = [
   {
     label: 'LinkedIn',
-    href: 'https://www.linkedin.com/in/eligalayda',
+    url: 'https://www.linkedin.com/in/eligalayda',
     icon: 'mdi-linkedin',
   },
   {
     label: 'Email',
-    href: 'mailto:eli.galayda@slalom.com',
+    url: 'mailto:eli.galayda@slalom.com',
     icon: 'mdi-email-outline',
   },
 ]
@@ -46,21 +47,13 @@ const links = [
             </p>
 
             <div class="d-flex flex-column ga-3">
-              <v-btn
+              <LinkButton
                 v-for="link in links"
                 :key="link.label"
-                :href="link.href"
-                target="_blank"
-                rel="noopener noreferrer"
-                variant="outlined"
-                size="large"
-                block
-                rounded="lg"
-                class="text-none link-btn"
-              >
-                <v-icon start>{{ link.icon }}</v-icon>
-                {{ link.label }}
-              </v-btn>
+                :label="link.label"
+                :url="link.url"
+                :icon="link.icon"
+              />
             </div>
           </v-card>
         </v-col>
@@ -76,14 +69,4 @@ const links = [
   border-radius: 50%;
   background: linear-gradient(135deg, #6366f1, #8b5cf6);
 }
-
-.link-btn {
-  transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.link-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
-}
-</style>
 </style>
