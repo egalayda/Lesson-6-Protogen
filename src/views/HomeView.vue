@@ -1,151 +1,89 @@
 ﻿<script setup lang="ts">
-defineProps<{
-  isDark: boolean
-}>()
+import { useTheme } from 'vuetify'
 
-const emit = defineEmits<{
-  (e: 'toggleDark'): void
-}>()
+const theme = useTheme()
+
+function toggleTheme() {
+  theme.global.name.value = theme.global.current.value.dark ? 'light' : 'dark'
+}
 
 const links = [
   {
     label: 'LinkedIn',
     href: 'https://www.linkedin.com/in/eligalayda',
-    icon: 'in',
+    icon: 'mdi-linkedin',
   },
   {
     label: 'Email',
     href: 'mailto:eli.galayda@slalom.com',
-    icon: '@',
+    icon: 'mdi-email-outline',
   },
 ]
 </script>
 
 <template>
-  <main class="page">
-    <button class="toggle-btn" @click="emit('toggleDark')" :aria-label="isDark ? 'Switch to light mode' : 'Switch to dark mode'">
-      {{ isDark ? 'Light' : 'Dark' }}
-    </button>
+  <v-main>
+    <v-container class="fill-height" fluid>
+      <v-row align="center" justify="center">
+        <v-col cols="12" sm="8" md="6" lg="4">
+          <v-btn
+            icon
+            variant="text"
+            style="position: absolute; top: 16px; right: 16px;"
+            @click="toggleTheme"
+          >
+            <v-icon>{{ theme.global.current.value.dark ? 'mdi-weather-sunny' : 'mdi-weather-night' }}</v-icon>
+          </v-btn>
 
-    <div class="card">
-      <div class="avatar" aria-label="Profile photo placeholder"></div>
+          <v-card class="pa-6 text-center" variant="flat" color="transparent">
+            <v-avatar size="100" class="mb-4">
+              <div class="gradient-avatar" />
+            </v-avatar>
 
-      <h1 class="name">Eli Galayda</h1>
-      <p class="tagline">Consultant &middot; Builder &middot; Problem Solver</p>
+            <h1 class="text-h4 font-weight-bold mb-1">Eli Galayda</h1>
+            <p class="text-body-1 text-medium-emphasis mb-6">
+              Consultant &middot; Builder &middot; Problem Solver
+            </p>
 
-      <nav class="links">
-        <a
-          v-for="link in links"
-          :key="link.label"
-          :href="link.href"
-          class="link-btn"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <span class="link-icon">{{ link.icon }}</span>
-          {{ link.label }}
-        </a>
-      </nav>
-    </div>
-  </main>
+            <div class="d-flex flex-column ga-3">
+              <v-btn
+                v-for="link in links"
+                :key="link.label"
+                :href="link.href"
+                target="_blank"
+                rel="noopener noreferrer"
+                variant="outlined"
+                size="large"
+                block
+                rounded="lg"
+                class="text-none link-btn"
+              >
+                <v-icon start>{{ link.icon }}</v-icon>
+                {{ link.label }}
+              </v-btn>
+            </div>
+          </v-card>
+        </v-col>
+      </v-row>
+    </v-container>
+  </v-main>
 </template>
 
 <style scoped>
-.page {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  padding: 2rem 1rem;
-  position: relative;
-}
-
-.toggle-btn {
-  position: absolute;
-  top: 1.25rem;
-  right: 1.25rem;
-  background: transparent;
-  border: 1.5px solid currentColor;
-  font-size: 0.85rem;
-  font-family: 'Inter', sans-serif;
-  font-weight: 500;
-  cursor: pointer;
-  padding: 0.4rem 0.85rem;
-  border-radius: 999px;
-  color: inherit;
-  transition: transform 0.2s, background-color 0.2s;
-}
-
-.toggle-btn:hover {
-  transform: scale(1.05);
-  background-color: rgba(128, 128, 128, 0.15);
-}
-
-.card {
+.gradient-avatar {
   width: 100%;
-  max-width: 480px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-}
-
-.avatar {
-  width: 100px;
-  height: 100px;
+  height: 100%;
   border-radius: 50%;
   background: linear-gradient(135deg, #6366f1, #8b5cf6);
-  flex-shrink: 0;
-}
-
-.name {
-  font-size: 1.75rem;
-  font-weight: 700;
-  letter-spacing: -0.5px;
-  text-align: center;
-}
-
-.tagline {
-  font-size: 0.95rem;
-  opacity: 0.6;
-  text-align: center;
-  font-weight: 400;
-}
-
-.links {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  width: 100%;
-  margin-top: 0.5rem;
 }
 
 .link-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.6rem;
-  width: 100%;
-  padding: 0.85rem 1.5rem;
-  border-radius: 0.75rem;
-  font-family: 'Inter', sans-serif;
-  font-size: 1rem;
-  font-weight: 500;
-  text-decoration: none;
-  border: 1.5px solid currentColor;
-  color: inherit;
-  transition: background-color 0.2s, transform 0.2s, box-shadow 0.2s;
+  transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .link-btn:hover {
-  background-color: rgba(128, 128, 128, 0.15);
   transform: translateY(-2px);
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
 }
-
-.link-icon {
-  font-size: 0.85rem;
-  font-weight: 700;
-  opacity: 0.7;
-}
+</style>
 </style>
